@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Articulo {
     private int codigo;
     private String descripcion;
@@ -44,6 +46,44 @@ public class Articulo {
     public void setDescuento(int descuento) {
         this.descuento = descuento;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + this.codigo;
+        hash = 47 * hash + Objects.hashCode(this.descripcion);
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.precio) ^ (Double.doubleToLongBits(this.precio) >>> 32));
+        hash = 47 * hash + this.descuento;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Articulo other = (Articulo) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
+            return false;
+        }
+        if (this.descuento != other.descuento) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }

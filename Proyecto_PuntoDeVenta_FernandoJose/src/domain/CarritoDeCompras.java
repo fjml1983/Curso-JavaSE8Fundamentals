@@ -1,48 +1,36 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class CarritoDeCompras {
-    private Articulo[] articulos;
-    private static int MAX_ARTICULOS = 1000;    
+    private ArrayList<Articulo> articulos;
 
     public CarritoDeCompras() {
-        articulos = new Articulo[MAX_ARTICULOS];
-    }
-    
-    
+        articulos = new ArrayList<>();
+    }        
     
      public void agregarArticulo(Articulo articulo){
-        for (int i = 0; i < MAX_ARTICULOS; i++) {
-            if(articulos[i] == null){
-                articulos[i] = articulo;
-                break;
-            }
-        }
+         articulos.add(articulo);
     }
         
     public void eliminarArticulo(Articulo articulo){
-        for (int i = 0; i < MAX_ARTICULOS; i++) {
-            if(articulos[i].getCodigo() == articulo.getCodigo()){
-                articulos[i] = null;
-                break;
-            }
-        }        
+        articulos.remove(articulo);
     }
     
       public void display(){
         System.out.println(".......DATOS DEL CARRITO.......");
 
         System.out.println("Total: " + 
-                Arrays.stream(articulos)
+                articulos.stream()
                 .filter(a -> a != null)
                 .mapToDouble(a -> a.getPrecio()).sum());
         
         System.out.println("Articulos: "); 
         char separador = '║';        
-        Arrays.stream(articulos)
+            articulos.stream()
             .filter(a -> a != null)
             .forEach(a -> 
                 System.out.println(new StringBuilder("\t")
